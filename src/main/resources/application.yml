@@ -1,0 +1,7 @@
+server:
+  port: 8080
+
+#logging:
+#  level:
+#    com.qred.service.ValidationResource: FULL
+#    com.qred.service.RXResource: DEBUG
