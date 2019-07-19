@@ -7,9 +7,6 @@ buildscript {
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE')
-// tag::build[]
-        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
-// end::build[]
     }
 }
 
@@ -18,28 +15,12 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-// tag::plugin[]
-apply plugin: 'com.palantir.docker'
-// end::plugin[]
 
 
 bootJar {
-    baseName = 'qred-app'
+    baseName = 'ubnt-app'
     version =  '0.1.0'
 }
-
-// tag::task[]
-task unpack(type: Copy) {
-    dependsOn bootJar
-    from(zipTree(tasks.bootJar.outputs.files.singleFile))
-    into("build/dependency")
-}
-docker {
-    name "${bootJar.baseName}"
-    copySpec.from(tasks.unpack.outputs).into("dependency")
-    buildArgs(['DEPENDENCY': "dependency"])
-}
-// end::task[]
 
 repositories {
     mavenCentral()
@@ -53,7 +34,6 @@ dependencies {
     compile 'org.projectlombok:lombok:1.16.14'
     compile 'io.springfox:springfox-swagger-ui:2.6.1'
     compile 'io.springfox:springfox-swagger2:2.6.1'
-    compile("io.reactivex.rxjava2:rxjava:2.2.10")
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.1.6.RELEASE'
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
