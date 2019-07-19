@@ -1,0 +1,16 @@
+Spring boot application with Swagger rest documentation.
+Uses WebFlux to connect to reddit feed.
+Rest resources provide some statistic information. for a minute, 5 minutes, 1 hour day or all time since app is running
+ api/count -> count of submissions and comments in given time period
+ api/top-active-count -> count of submission + comments for most active subreddits in given time
+ api/top-hundred-active -> list of top active subreddits in give time with name and count of sub+com
+
+Swagger documentation is provided. if running locally at port 8080 -> localhost:8080
+(or what ever are your settings)
+
+to run using gradle -> ./gradlew bootRun
+
+to create jar file -> ./gradlew build
+
+ubnt-app-0.1.0.jar file will be created in build/libs folder
+to run it (with embedded tomcat) -> java -jar ubnt-app-0.1.0.jar
