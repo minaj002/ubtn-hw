@@ -3,5 +3,4 @@ server:
 
 #logging:
 #  level:
-#    com.qred.service.ValidationResource: FULL
-#    com.qred.service.RXResource: DEBUG
+
