@@ -2,6 +2,5 @@
 .gradle
 build/classes
 build/resources
-build/libs/
 build/tmp/compileJava/
 src/test/
