@@ -19,7 +19,7 @@ public class HashMapWithExpirableLinkedListValues {
 
     public void put(String key) {
 
-        if(hashMap.containsKey(key)) {
+        if (hashMap.containsKey(key)) {
             hashMap.get(key).add();
         } else {
             ExpirableLinkedList list = new ExpirableLinkedList(ttlUnit, ttlValue);
@@ -33,15 +33,22 @@ public class HashMapWithExpirableLinkedListValues {
         removeExpired();
         HashMap<String, ExpirableLinkedList> clonedMap = (HashMap<String, ExpirableLinkedList>) hashMap.clone();
 
-        Map<String, Integer> nameToSizeMap = clonedMap.entrySet().stream().collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().size()));
+        Map<String, Integer> nameToSizeMap = clonedMap.entrySet().stream()
+                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().size()));
         Comparator<? super Map.Entry<String, Integer>> comparator = (o1, o2) -> o2.getValue().compareTo(o1.getValue());
-        List<SubReddit> orderedList = nameToSizeMap.entrySet().stream().sorted(comparator).limit(100).map(entry -> SubReddit.builder().name(entry.getKey()).count(entry.getValue()).build()).collect(Collectors.toList());
+        List<SubReddit> orderedList = nameToSizeMap.entrySet()
+                .stream().sorted(comparator).limit(100)
+                .map(entry -> SubReddit.builder().name(entry.getKey())
+                        .count(entry.getValue()).build())
+                .collect(Collectors.toList());
 
         return orderedList;
     }
 
     private void removeExpired() {
-        hashMap.forEach((key, entry) -> entry.removeExpired());
+        hashMap.forEach((key, entry) -> {
+            while (entry.removeExpired()) ;
+        });
     }
 
 
